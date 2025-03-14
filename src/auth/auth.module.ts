@@ -12,6 +12,7 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule, UserModule, PassportModule],
       useFactory: async (configService: ConfigService) => ({
@@ -20,6 +21,7 @@ import { PassportModule } from '@nestjs/passport';
       }),
       inject: [ConfigService],
     }),
+    UserModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
